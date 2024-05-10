@@ -3,7 +3,7 @@
  * @param {*} context 
  * @returns 
  */
-export async function GET(request, context) {
+export async function GET(request) {
   const params = new URLSearchParams(request.url.split('?')[1]);
   const zipcode = params.get("zipcode")
   if (!zipcode || !/^\d{7}$/.test(zipcode)) {
@@ -25,4 +25,15 @@ export async function GET(request, context) {
     },
     status: 200
   })
+}
+
+export async function OPTIONS() {
+  return new Response(null, {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+    status: 204
+  });
 }
